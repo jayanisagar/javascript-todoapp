@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<style>
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+    }
+
+    body {
+        background-color: #2293a7 !important;
+        text-align: center;
+    }
+
+    div {
+        margin: 20px;
+    }
+
+    h1 {
+        color: #ffff;
+    }
+
+    .yollow {
+        color: #FFFF00;
+    }
+
+    .green {
+        color: #00ff40;
+    }
+
+   
+
+    li {
+        display: inline-block;
+        padding: 5px;
+        width: 50%;
+        background-color: rgb(19, 211, 201);
+        color: #fff;
+        border: solid 1px black;
+    }
+
+</style>
+
+<body>
+
+    <h1> WORK TO-DOS</h1>
+
+    <div class="yollow">
+        Enter text into the input field to add items to your list.
+    </div>
+
+    <div class="green">
+        Click the item to mark is as complete.
+    </div>
+
+    <div>
+        Click the "X" to remove the item from your list.
+    </div>
+
+    <div>
+        <input id="textInput" type="text" placeholder="New Item..." onkeyup="addTodo(event)"> <button>Edit</button>
+    </div>
+
+    <div>
+        <ul id="todoList">
+    
+        </ul>
+    </div>
+
+
+</body>
+<script>
+    var todoList = [];
+
+    function addTodo(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault(); // Ensure it is only this code that rusn
+            let textInput = document.getElementById('textInput');
+            todoList.push(textInput.value);
+            textInput.value = '';
+            show();
+        }
+    }
+
+    function show() {
+        let todosUl = document.getElementById('todoList');
+        todosUl.innerHTML = '';
+
+        for (let i = 0; i < todoList.length; i++) {
+            let todoLi = document.createElement('li');
+            todoLi.id = i;
+            todoLi.innerHTML = todoList[i];
+            todoLi.appendChild(createDeleteButton(i));
+            todosUl.appendChild(todoLi);
+        }
+    }
+
+    function createDeleteButton(id) {
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = "X";
+        deleteButton.addEventListener('click', function (e) {
+            deleteTodo(id);
+        });
+        return deleteButton;
+    }
+
+    function deleteTodo(position) {
+        this.todoList.splice(position, 1);
+        show();
+    }
+</script>
+
+</html>
